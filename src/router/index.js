@@ -1,43 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Films from '@/views/movies/Films'
-import NowPlaying from '@/views/movies/NowPlaying'
-import ComingSoon from '@/views/movies/ComingSoon'
-import Detail from '@/views/movies/Detail'
-import Cinemas from '@/views/cinemas/Index'
-import Center from '@/views/center/Me'
 import NotFound from '@/views/not-found/404'
+import Films from './routes/film'
+import Cinemas from './routes/cinema'
+import Center  from "./routes/center"
 Vue.use(VueRouter)
 
 const routes = [
-
     {
       path:"/",
       redirect:"/films/nowPlaying"
     },
-     {
-       path:"/films",
-       component:Films,
-       children:[
-         {path:"nowPlaying",component:NowPlaying},
-         {path:"comingSoon",component:ComingSoon}
-       ]
-     },
-     {
-       path:"/film/:id",
-       component:Detail
-     },
-     {
-       path:"/cinemas",
-       component:Cinemas
-     },
-     {
-       path:"/center",
-       component:Center
-     },{
+     ...Films,
+     Cinemas,
+     Center,
+    {
        path:"*",
        component:NotFound
-     }
+    }
   // {
   //   path: '/about',
   //   name: 'About',
@@ -47,7 +27,6 @@ const routes = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   // }
 ]
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
